@@ -122,7 +122,7 @@
         return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
     }
 
-    function drawShip(x, y, a, colour = "white") {
+    function drawShip(x, y, a, colour = "pink") {
         ctx.strokeStyle = colour;
         ctx.lineWidth = SHIP_SIZE / 15;
         ctx.beginPath();
@@ -285,6 +285,7 @@
                 dist: 0,
                 explodeTime: 0
             });
+
             if(level>=1)
             {
                 ship.lasers.push({ // from the back of the ship
@@ -292,6 +293,30 @@
                     y: ship.y + 4 / 3 * ship.r * Math.sin(ship.a),
                     xv: -LASER_SPD * Math.cos(ship.a) / FPS,
                     yv: LASER_SPD * Math.sin(ship.a) / FPS,
+                    dist: 0,
+                    explodeTime: 0
+                });
+            }
+
+            if(level>=2)
+            {
+                ship.lasers.push({ // from the nose of the ship
+                    x: ship.x + 4 / 3 * ship.r * Math.cos(ship.a),
+                    y: ship.y - 4 / 3 * ship.r * Math.sin(ship.a),
+                    xv: LASER_SPD * Math.sin(ship.a) / FPS,
+                    yv: -LASER_SPD * Math.cos(ship.a) / FPS,
+                    dist: 0,
+                    explodeTime: 0
+                });
+            }
+
+            if(level>=3)
+            {
+                ship.lasers.push({ // from the nose of the ship
+                    x: ship.x + 4 / 3 * ship.r * Math.cos(ship.a),
+                    y: ship.y - 4 / 3 * ship.r * Math.sin(ship.a),
+                    xv: LASER_SPD * Math.sin(-ship.a) / FPS,
+                    yv: -LASER_SPD * Math.cos(ship.a) / FPS,
                     dist: 0,
                     explodeTime: 0
                 });
